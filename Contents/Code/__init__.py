@@ -1,6 +1,6 @@
 ####################################################################################################
-# VDR Live TV Plugin V 0.0.2 alpha
-# written by Alexander Damhuis in 2013/2014
+# VDR Live TV Plugin V 0.0.3 alpha
+# written by Alexander Damhuis in 2013-2016
 # based on the Dreambox Plugin by greeny
 #
 # this is free code, do whatever you want with it!
@@ -44,6 +44,7 @@ def MainMenu():
 		xml = LISTGROUPS_URL % (Prefs['host'], Prefs['restapi'])
 		
 		try:
+#			GroupList = XML.ElementFromURL(xml).replace('@', '')
 			GroupList = XML.ElementFromURL(xml)
 		
 		except:
@@ -104,6 +105,9 @@ def DisplayGroupChannels(name):
 @route("/video/vdr/LiveTVMenu")
 def LiveTVMenu(sender, channel, thumb, include_oc=False):
 
+	stream = STREAM_URL % (Prefs['host'], Prefs['port'], Prefs['stream'],channel)
+	Log("Stream reached ======")
+
 	if (thumb == "true"):
 		Log("Channellogo found")
 		thumb = CHANNELIMAGE_URL % (Prefs['host'], Prefs['restapi'], channel)
@@ -142,7 +146,6 @@ def LiveTVMenu(sender, channel, thumb, include_oc=False):
 	except:
 		currentDuration = "0"	
 		
-	stream = STREAM_URL % (Prefs['host'], Prefs['port'], Prefs['stream'],channel)
 	if currentStartTime == "0":
 		currentStartTime = "no start time"
 	else:
@@ -162,15 +165,18 @@ def LiveTVMenu(sender, channel, thumb, include_oc=False):
 		summary = ("%s | %s" % (currentStartTime, currentDescription)),
 		duration = currentDuration,
 		rating_key = currentTitle,
-		thumb = thumb
-	)
-	monat = MediaObject(
-		parts = [PartObject(key = stream, duration = currentDuration)]
-	)
-	video.add(monat)
+		thumb = thumb,
+		items=[
+			MediaObject(
+			optimized_for_streaming=True,
+			#container='mp2ts',
+			duration=int(currentDuration),
+			parts = [PartObject(key = stream, duration = int(currentDuration))]
+				)
+			]
+		)
+
 	if include_oc:
-		oc = ObjectContainer()
-		oc.add(video)
-		return oc
-	else:
-		return video
+		return ObjectContainer(objects=[video])
+
+	return video
