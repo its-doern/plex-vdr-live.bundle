@@ -165,7 +165,7 @@ def LiveTVMenu(sender, channel, thumb, include_oc=False):
 		summary = ("%s | %s" % (currentStartTime, currentDescription)),
 		duration = currentDuration,
 		rating_key = currentTitle,
-		thumb = thumb,
+		thumb = CHANNELIMAGE_URL % (Prefs['host'], Prefs['restapi'], channel),
 		items=[
 			MediaObject(
 			optimized_for_streaming=True,
