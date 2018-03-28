@@ -106,6 +106,7 @@ def DisplayGroupChannels(name):
 def LiveTVMenu(sender, channel, thumb, include_oc=False):
 
 	stream = STREAM_URL % (Prefs['host'], Prefs['port'], Prefs['stream'],channel)
+	Log.Info("testAlex, Open the following Stream: %s", stream)
 	Log("Stream reached ======")
 
 	if (thumb == "true"):
