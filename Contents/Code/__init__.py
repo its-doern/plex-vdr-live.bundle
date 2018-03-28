@@ -106,7 +106,6 @@ def DisplayGroupChannels(name):
 def LiveTVMenu(sender, channel, thumb, include_oc=False, checkFiles = 0, includeBandwidths = 0, includeExtras = 0, offset = 0):
 
 	stream = STREAM_URL % (Prefs['host'], Prefs['port'], Prefs['stream'],channel)
-	Log.Info("testAlex, Open the following Stream: %s", stream)
 	Log("Stream reached ======")
 
 	if (thumb == "true"):
@@ -178,7 +177,5 @@ def LiveTVMenu(sender, channel, thumb, include_oc=False, checkFiles = 0, include
 		)
 
 	if include_oc:
-		Log.Info("includoc true: %s", video)
 		return ObjectContainer(objects=[video])
-	Log.Info("includeoc false: %s", video)
 	return video
