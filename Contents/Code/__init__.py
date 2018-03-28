@@ -178,7 +178,7 @@ def LiveTVMenu(sender, channel, thumb, include_oc=False):
 		)
 
 	if include_oc:
-		Log.Info("includoc true: %s", objects=[video])
+		Log.Info("includoc true: %s", video)
 		return ObjectContainer(objects=[video])
 	Log.Info("includeoc false: %s", video)
 	return video
