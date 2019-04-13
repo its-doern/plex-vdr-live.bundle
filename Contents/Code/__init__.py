@@ -36,7 +36,7 @@ def Start():
 
 ####################################################################################################
 @handler('/video/vdr', 'VDR Streamdev Client', art=ART, thumb=ICON)
-def MainMenu():
+def MainMenu(**kwargs):
 
 	groupListContainer = ObjectContainer(view_group='List', no_cache=True)
 
@@ -68,7 +68,7 @@ def MainMenu():
 #################################################################################
 
 @route("/video/vdr/DisplayGroupChannels")
-def DisplayGroupChannels(name):
+def DisplayGroupChannels(name, **kwargs):
 
 	Log("Aufruf von DisplayGroupChannels %s" % (name))
 	
